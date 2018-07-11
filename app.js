@@ -7,6 +7,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var mongoose = require('mongoose');
+
 var app = express();
 
 // view engine setup
@@ -22,10 +24,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+mongoose.connect('mongodb://localhost/admin-particle');
+mongoose.set('debug', true);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
+var UserSchema = new mongoose.Schema({
+  username: {type: String},
+});
+
+mongoose.model('User', UserSchema);
+
+var User = mongoose.model('User');
+
+var user = new User();
+user.username = 'username';
+user.save()
 
 // error handler
 app.use(function(err, req, res, next) {
