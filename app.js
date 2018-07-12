@@ -33,18 +33,6 @@ app.use(function(req, res, next) {
 });
 
 
-var UserSchema = new mongoose.Schema({
-  username: {type: String},
-});
-
-mongoose.model('User', UserSchema);
-
-var User = mongoose.model('User');
-
-var user = new User();
-user.username = 'username';
-user.save()
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
