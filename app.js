@@ -19,9 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-require('./app/routes')(app);
-require('./app/models/User');
 require('./config/passport');
+require('./app/models/index');
+require('./app/routes')(app);
 
 mongoose.connect('mongodb://localhost/admin-particle');
 mongoose.set('debug', true);
@@ -30,7 +30,6 @@ mongoose.set('debug', true);
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
 
 // error handler
 app.use(function(err, req, res, next) {
