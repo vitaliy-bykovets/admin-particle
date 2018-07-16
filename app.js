@@ -19,7 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-require('./app/routes')(app)
+require('./app/routes')(app);
+require('./app/models/User');
+require('./config/passport');
 
 mongoose.connect('mongodb://localhost/admin-particle');
 mongoose.set('debug', true);
