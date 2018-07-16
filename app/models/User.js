@@ -15,7 +15,13 @@ var UserSchema = new mongoose.Schema({
   username: {type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
   email: {type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true},
   hash: String,
-  salt: String
+  salt: String,
+  image: String,
+  firstName: String,
+  lastName: String,
+  phone: String,
+  county: {type: mongoose.Schema.Types.ObjectId, ref: 'Country', required: true},
+  dateOfBirth: Number
 }, {timestamps: true});
 // timestamps add createdAt and updatedAt to schema
 
@@ -52,4 +58,4 @@ UserSchema.methods.toAuthJSON = function(){
   };
 };
 
-mongoose.model('User', UserSchema); // convert schema to Model (we can work with it)
+mongoose.model('User', UserSchema); // c onvert schema to Model (we can work with it)
