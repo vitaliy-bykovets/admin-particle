@@ -58,4 +58,4 @@ UserSchema.methods.toAuthJSON = function(){
   };
 };
 
-mongoose.model('User', UserSchema); // c onvert schema to Model (we can work with it)
+mongoose.model('User', UserSchema); // convert schema to Model (we can work with it)
