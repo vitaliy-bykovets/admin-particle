@@ -25,4 +25,33 @@ router.post('/login', function (req, res, next) {
   })(req, res, next);
 });
 
+router.post('/register', function(req, res, next){
+  var user = new User();
+
+  if(!req.body.username) {
+    return res.status(422).json({ errors: { username: "can't be blank" }});
+  }
+
+  if(!req.body.email){
+    return res.status(422).json({ errors: { email: "can't be blank" }});
+  }
+
+  if(!req.body.password){
+    return res.status(422).json({ errors: { password: "can't be blank" }});
+  }
+
+  user.username = req.body.username;
+  user.email = req.body.email;
+  user.setPassword(req.body.password);
+  user.image = req.body.image;
+  user.firstName = req.body.firstName;
+  user.lastName = req.body.lastName;
+  user.phone = req.body.phone;
+  user.dateOfBirth = req.body.dateOfBirth;
+
+  user.save().then(function(){
+    return res.json({ user: user.toAuthJSON() });
+  }).catch(next);
+});
+
 module.exports = router;

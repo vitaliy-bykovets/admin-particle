@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var secret = require('../../config').secret;
 
 // mongoose-unique-validator is a plugin which adds pre-save validation for unique fields within a Mongoose schema.
 // This makes error handling much easier, since you will get a Mongoose validation error when you attempt to violate a unique constraint, rather than an E11000 error from MongoDB.
@@ -20,8 +21,8 @@ var UserSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   phone: String,
-  county: {type: mongoose.Schema.Types.ObjectId, ref: 'Country', required: true},
-  dateOfBirth: Number
+  county: {type: mongoose.Schema.Types.ObjectId, ref: 'Country'},
+  dateOfBirth: String
 }, {timestamps: true});
 // timestamps add createdAt and updatedAt to schema
 
