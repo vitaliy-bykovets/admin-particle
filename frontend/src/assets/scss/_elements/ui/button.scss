@@ -1,0 +1,17 @@
+// Buttons
+// ==========================================================================
+
+.btn {
+  display: block;
+  border-radius: 3px;
+  color: #000;
+  height: 38px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  color: $inverse-color;
+}

@@ -1,0 +1,21 @@
+/*
+   Display
+   ========================================================================== */
+
+.u-display {
+    &-block {
+        display: block;
+    }
+
+    &-none {
+        display: none;
+    }
+
+    &-inline {
+        display: inline;
+    }
+
+    &-inline-block {
+        display: inline-block;
+    }
+}

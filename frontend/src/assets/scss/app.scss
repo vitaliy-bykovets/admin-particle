@@ -1,0 +1,39 @@
+// ==========================================================================
+// Main file to connect albums structural pieces
+// ==========================================================================
+@import 'settings';
+
+// Settings
+@import '_settings/color';
+@import '_settings/typography';
+@import '_settings/layout';
+
+// Tools
+@import '_tools/mixins';
+
+// Generic
+@import '_generic/reset';
+@import '_generic/base';
+@import '_generic/layout';
+@import '_generic/animations';
+
+// Elements
+@import '_elements/page';
+@import '_elements/ui/images';
+@import '_elements/ui/links';
+@import '_elements/ui/button';
+@import '_elements/ui/tables';
+@import '_elements/ui/inputs';
+
+// Objects
+@import '_objects/flex';
+
+// Components
+@import '_components/header';
+@import '_components/auth';
+@import '_components/footer';
+
+
+// Utilities
+@import '_utilities/display';
+

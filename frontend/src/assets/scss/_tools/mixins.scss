@@ -1,0 +1,88 @@
+//
+// Mixins
+// ==========================================================================
+
+@mixin transform($transform...) {
+    -webkit-transform: $transform;
+        -ms-transform: $transform;
+            transform: $transform;
+}
+
+
+@mixin animation($animation...) {
+    -webkit-transform: $animation;
+        -ms-transform: $animation;
+            transform: $animation;
+}
+
+// Other mixins if need:
+// https://gist.github.com/richardtorres314/26b18e12958ba418bb37993fdcbfc1bd
+@mixin flexbox() {
+  display: -webkit-box;
+  display: flex;
+}
+
+
+@mixin grids() {
+  display: -ms-grid;
+  display:     grid;
+}
+
+// truncate sentences
+@mixin truncate($limit: 100%) {
+    max-width: $limit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// clear floats
+@mixin clearfix() {
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+// Position pseudo element on top left, top-right,
+// bottom-left or bottom-rigth of relative parent
+@mixin content-tl($top: 0, $left: 0, $height: 100%, $width: 100%, $bg_color: transparent) {
+    content:          '';
+    position:         absolute;
+    top:              $top;
+    left:             $left;
+    height:           $height;
+    width:            $width;
+    background-color: $bg_color;
+}
+
+@mixin content-tr($top: 0, $right: 0, $height: 100%, $width: 100%, $bg_color: transparent) {
+    content:          '';
+    position:         absolute;
+    top:              $top;
+    right:            $right;
+    height:           $height;
+    width:            $width;
+    background-color: $bg_color;
+}
+
+@mixin content-bl($bottom: 0, $left: 0, $height: 100%, $width: 100%, $bg_color: transparent) {
+    content:          '';
+    position:         absolute;
+    bottom:           $bottom;
+    left:             $left;
+    height:           $height;
+    width:            $width;
+    background-color: $bg_color;
+}
+
+@mixin content-br($bottom: 0, $right: 0, $height: 100%, $width: 100%, $bg_color: transparent) {
+    content:          '';
+    position:         absolute;
+    bottom:           $bottom;
+    right:            $right;
+    height:           $height;
+    width:            $width;
+    background-color: $bg_color;
+}
