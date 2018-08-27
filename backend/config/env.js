@@ -5,10 +5,10 @@ const config = {
   app: {
     jwtExpireDuration: 86400 * 60, // 2 months
     password: {
-      recovery_timeout: 600 // 30 минут
+      recovery_timeout: 600 // 30 minutes
     },
   },
-  database: {
+  database: { // settings for knex
     client: 'mysql',
     connection: {
       host: process.env.DB_HOST,
@@ -29,7 +29,7 @@ const config = {
       max: 1
     }
   },
-  json: { pretty: false },
+  json: { pretty: false }, // settings for koaJson
 };
 
 module.exports = config;

@@ -1,0 +1,2 @@
+const knexInstance = require('knex'); // https://knexjs.org/
+const bookshelfInstance = require('bookshelf'); // Bookshelf is a JavaScript ORM for Node.js, built on the Knex SQL query builder.  http://bookshelfjs.org/
