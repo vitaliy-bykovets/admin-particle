@@ -13,11 +13,8 @@ app.use(koaBody());
 
 // require('./routes')(app);
 
-
-
 // The "parent" is the module that caused the script to be interpreted (and cached), if any
 if (!module.parent) {
-  console.log(logger.info.toString())
   app.listen(process.env.PORT, () => {
     logger.info(`App running on port: ${process.env.PORT}`);
   });
