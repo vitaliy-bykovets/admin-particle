@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "dotenv": "^6.0.0",
+    "knex": "^0.15.2",
     "koa": "^2.5.2",
     "koa-body": "^4.0.4",
     "koa-json": "^2.0.2",

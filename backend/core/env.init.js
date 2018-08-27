@@ -4,6 +4,7 @@ const Validator = require('validatorjs'); // The validatorjs library makes data 
 
 const { each } = require('lodash');
 const logger = require('./../core/libs/Logger')(module);
+
 // process.env validator
 const validation = new Validator(process.env, {
   NODE_ENV: 'required|in:development,production',

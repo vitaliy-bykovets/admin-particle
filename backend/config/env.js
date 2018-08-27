@@ -1,3 +1,5 @@
+require('./../core/env.init'); // run env initialization
+
 // File with constants
 const config = {
   app: {
