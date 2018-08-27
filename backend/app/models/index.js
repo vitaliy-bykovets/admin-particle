@@ -1,2 +1,0 @@
-require('./Country');
-require('./User');
