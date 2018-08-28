@@ -9,7 +9,12 @@ const logger = require('./../core/libs/Logger')(module);
 const validation = new Validator(process.env, {
   NODE_ENV: 'required|in:development,production',
   PORT: 'required|numeric',
-  LOG_ENABLED: 'required'
+  LOG_ENABLED: 'required',
+  DB_NAME: 'required',
+  DB_HOST: 'required',
+  DB_USER: 'required',
+  DB_PASS: 'required',
+  DB_PORT: 'required',
 });
 
 if (validation.fails()) {

@@ -17,7 +17,7 @@ services:
     image: mysql:5.7.18
     container_name: koa.mysql
     ports:
-      - 3307:3308
+      - 3307:3306
     environment:
       MYSQL_DATABASE: appdb
       MYSQL_USER: root

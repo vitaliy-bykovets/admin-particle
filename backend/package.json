@@ -10,6 +10,7 @@
     "koa": "^2.5.2",
     "koa-body": "^4.0.4",
     "koa-json": "^2.0.2",
+    "koa-router": "^7.4.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "mysql": "^2.16.0",
@@ -22,7 +23,8 @@
   "scripts": {
     "start": "node_modules/.bin/nodemon -e js,pug server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "knex seed:run"
+    "seed": "knex seed:run",
+    "migrate": "knex migrate:latest"
   },
   "author": "",
   "license": "ISC"
