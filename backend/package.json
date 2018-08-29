@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.5.1",
     "bookshelf": "^0.13.3",
     "dotenv": "^6.0.0",
     "knex": "^0.15.2",

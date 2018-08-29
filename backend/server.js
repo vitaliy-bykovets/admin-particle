@@ -12,7 +12,7 @@ app.context.config = config; // add settings to context
 app.use(koaJson(json));
 app.use(koaBody());
 
-// require('./routes')(app); // connect routes to app
+require('./routes')(app); // connect routes to app
 
 // The "parent" is the module that caused the script to be interpreted (and cached), if any
 if (!module.parent) {
