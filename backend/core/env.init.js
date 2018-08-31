@@ -15,6 +15,7 @@ const validation = new Validator(process.env, {
   DB_USER: 'required',
   DB_PASS: 'required',
   DB_PORT: 'required',
+  SECRET: 'required'
 });
 
 if (validation.fails()) {

@@ -24,7 +24,7 @@ const handler = {
 
     const token = JWTService.signUser(user);
 
-    ctx.body = { ...user, token };
+    ctx.body = { user, token };
   },
   async signup(ctx) {
     await validate(ctx.request.body, {
@@ -48,7 +48,7 @@ const handler = {
     const token = JWTService.signUser(user);
     ctx.body = { token };
   }
-}
+};
 
 router.post('/signin', handler.login);
 router.post('/signup', handler.signup);

@@ -6,7 +6,6 @@ module.exports = bookshelf.model('Users',
   {
     tableName: 'users',
     initialize() {
-      console.log(this);
       this.on('creating', this.hashPassword, this);
       this.on('saving', this.setUpdatetdAt, this);
     },

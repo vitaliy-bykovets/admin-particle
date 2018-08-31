@@ -15,8 +15,8 @@ const JWTService = {
     const id = userModel.get('id');
 
     userPayload.data = { id };
-
-    return jsonwebtoken.sign(userPayload, process.env.SECRET);
+    const token = jsonwebtoken.sign(userPayload, 'asdkjf');
+    return token;
   },
 
   // check token
@@ -30,3 +30,5 @@ const JWTService = {
     });
   })
 };
+
+module.exports = JWTService;
