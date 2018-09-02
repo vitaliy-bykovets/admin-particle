@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+
+import * as R from 'ramda';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  public loginForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
+  public hasError(fieldName) {
+    const control = this.loginForm.controls[fieldName];
+    return (control.dirty && control.touched) && !R.isNil(control.errors);
+  }
+
+  public onSubmit() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+  }
 }

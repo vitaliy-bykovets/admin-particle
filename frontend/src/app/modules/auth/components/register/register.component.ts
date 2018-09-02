@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators } from "@angular/forms";
+
+import * as R from 'ramda';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  public registerForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      repeatPassword: ['', Validators.required],
+    })
   }
 
+  public hasError(fieldName) {
+    const control = this.registerForm.controls[fieldName];
+    return (control.dirty && control.touched) && !R.isNil(control.errors);
+  }
+
+  public onSubmit() {
+    if (this.registerForm.invalid) {
+      return;
+    }
+  }
 }
