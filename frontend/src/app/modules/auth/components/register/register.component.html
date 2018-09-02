@@ -1,23 +1,36 @@
-<form class="login-form">
-  <div class="form-group">
-    <label for="email" class="form-group__label">Email address</label>
-    <input id="email" class="form-group__field">
-  </div>
+<div class="form-wrapper">
+  <form class="register-form"
+        (submit)="onSubmit()"
+        [formGroup]="registerForm">
+    <div class="form-group">
+      <label for="email" class="form-group__label">Email address</label>
+      <input formControlName="email" placeholder="Email" id="email" class="form-group__field">
+    </div>
 
-  <div class="form-group">
-    <label for="username" class="form-group__label">User name</label>
-    <input id="username" class="form-group__field">
-  </div>
+    <div class="form-group">
+      <label for="username" class="form-group__label">User name</label>
+      <input formControlName="username"
+             id="username"
+             class="form-group__field"
+             [ngClass]="{'error': hasError('username')}">
+    </div>
 
-  <div class="form-group">
-    <label for="password" class="form-group__label">Password</label>
-    <input id="password" class="form-group__field">
-  </div>
+    <div class="form-group">
+      <label for="password" class="form-group__label">Password</label>
+      <input formControlName="password"
+             id="password"
+             class="form-group__field"
+             [ngClass]="{'error': hasError('password')}">
+    </div>
 
-  <div class="form-group">
-    <label for="repeat-password" class="form-group__label">Repeat password</label>
-    <input id="repeat-password" class="form-group__field">
-  </div>
+    <div class="form-group">
+      <label for="repeat-password" class="form-group__label">Repeat password</label>
+      <input formControlName="repeatPassword"
+             id="repeat-password"
+             class="form-group__field"
+             [ngClass]="{'error': hasError('repeat-password')}">
+    </div>
 
-  <button class="btn btn-primary" type="submit">Sign up</button>
-</form>
+    <button class="btn btn-primary" type="submit">Sign up</button>
+  </form>
+</div>
