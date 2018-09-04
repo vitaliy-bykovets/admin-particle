@@ -47,11 +47,24 @@ const handler = {
 
     const token = JWTService.signUser(user);
     ctx.body = { token };
+  },
+  async forgotPassword(ctx) {
+    await validate(ctx.request.body, {
+      email: "required|email"
+    });
+
+    const { email } = ctx.request.body;
+    const userEmail = await User.where({ email }).count();
+
+    if (!userEmail) {
+      this.ctx.throwSingle('User with this email wasn\'t registered', 404); // 404 Not found
+    }
   }
 };
 
 router.post('/signin', handler.login);
 router.post('/signup', handler.signup);
+router.post('/forgot-password', handler.forgotPassword);
 
 module.exports = router.routes();
 

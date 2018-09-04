@@ -17,6 +17,7 @@
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "mysql": "^2.16.0",
+    "nodemailer": "^4.6.8",
     "validatorjs": "^3.14.2",
     "winston": "^3.0.0"
   },
@@ -26,8 +27,8 @@
   "scripts": {
     "start": "node_modules/.bin/nodemon -e js,pug server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "knex seed:run",
-    "migrate": "knex migrate:latest"
+    "seed": "node_modules/.bin/knex seed:run",
+    "migrate": "node_modules/.bin/knex migrate:latest"
   },
   "author": "",
   "license": "ISC"
