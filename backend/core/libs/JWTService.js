@@ -15,7 +15,7 @@ const JWTService = {
     const id = userModel.get('id');
 
     userPayload.data = { id };
-    const token = jsonwebtoken.sign(userPayload, 'asdkjf');
+    const token = jsonwebtoken.sign(userPayload, process.env.SECRET);
     return token;
   },
 

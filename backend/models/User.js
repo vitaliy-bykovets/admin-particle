@@ -56,4 +56,5 @@ module.exports = bookshelf.model('Users',
         email: email.toLowerCase().trim()
       }).fetch({columns: ['id', 'password', 'first_name', 'last_name', 'roles']});
     })
-  });
+  }
+);
