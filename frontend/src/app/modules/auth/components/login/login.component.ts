@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import * as R from 'ramda';
 
 @Component({
-  selector: 'app-login',
+  selector: 'ap-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

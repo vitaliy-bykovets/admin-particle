@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {AuthRouterModule} from "./auth-router.module";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
-import { AuthComponent } from './containers/auth/auth.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { AuthRouterModule } from "./auth-router.module";
-
+import * as fromComponents from './components';
+import * as fromContainers from './containers';
 
 @NgModule({
   imports: [
@@ -15,6 +13,6 @@ import { AuthRouterModule } from "./auth-router.module";
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [AuthComponent, LoginComponent, RegisterComponent]
+  declarations: [ ...fromComponents.components, ...fromContainers.containers ]
 })
 export class AuthModule { }
