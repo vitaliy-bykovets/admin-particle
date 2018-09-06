@@ -22,9 +22,12 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@hackages/ngxerrors": "^6.0.3",
+    "@ultimate/ngxerrors": "^1.4.0",
     "core-js": "^2.5.4",
     "ramda": "^0.25.0",
-    "rxjs": "^6.0.0",
+    "rxjs": "^6.3.2",
+    "rxjs-compat": "^6.3.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

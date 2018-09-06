@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-
-import * as R from 'ramda';
+import { FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'ap-login',
@@ -12,12 +10,12 @@ export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor() {}
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+    this.loginForm = new FormGroup({
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)])
     });
   }
 
@@ -25,9 +23,8 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get("email")
   }
 
-  public hasError(fieldName) {
-    const control = this.loginForm.controls[fieldName];
-    return (control.dirty && control.touched) && !R.isNil(control.errors);
+  get password() {
+    return this.loginForm.get("password")
   }
 
   public onSubmit() {
