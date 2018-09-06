@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AuthRouterModule} from "./auth-router.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatInputModule, MatCardModule, MatButtonModule} from '@angular/material';
 
 import * as fromComponents from './components';
 import * as fromContainers from './containers';
@@ -11,7 +12,10 @@ import * as fromContainers from './containers';
     CommonModule,
     AuthRouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule
   ],
   declarations: [ ...fromComponents.components, ...fromContainers.containers ]
 })

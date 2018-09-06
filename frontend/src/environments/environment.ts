@@ -6,6 +6,12 @@ export const environment = {
   production: false
 };
 
+
+export const apiURL = {
+  signin: 'api/signin',
+  signup: 'api/signup',
+  forgotPassword: 'api/forgot-password',
+};
 /*
  * In development mode, to ignore zone related error stack frames such as
  * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can
