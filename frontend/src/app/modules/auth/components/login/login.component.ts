@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+
+import { AuthService } from './../../services';
 
 @Component({
   selector: 'ap-login',
@@ -8,15 +10,20 @@ import { FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class LoginComponent implements OnInit {
 
+  @Output() login: EventEmitter<any> = new EventEmitter();
+
   public loginForm: FormGroup;
 
-  constructor() {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.loginForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)])
-    });
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    })
   }
 
   get email() {
@@ -31,5 +38,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+
+    this.authService.login(this.loginForm.value)
+      .subscribe((response) => {})
   }
 }

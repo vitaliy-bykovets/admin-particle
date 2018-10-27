@@ -8,8 +8,8 @@ export const environment = {
 
 
 export const apiURL = {
-  signin: 'api/signin',
-  signup: 'api/signup',
+  signin: 'api/auth/signin',
+  signup: 'api/auth/signup',
   forgotPassword: 'api/forgot-password',
 };
 /*

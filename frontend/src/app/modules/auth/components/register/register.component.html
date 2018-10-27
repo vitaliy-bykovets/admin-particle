@@ -1,36 +1,83 @@
 <div class="form-wrapper">
-  <form class="register-form"
-        (submit)="onSubmit()"
-        [formGroup]="registerForm">
-    <div class="form-group">
-      <label for="email" class="form-group__label">Email address</label>
-      <input formControlName="email" placeholder="Email" id="email" class="form-group__field">
-    </div>
+  <mat-card>
+    <img class="logo-img" src="assets/img/logo.png" alt="Admin particle logo">
 
-    <div class="form-group">
-      <label for="username" class="form-group__label">User name</label>
-      <input formControlName="username"
-             id="username"
-             class="form-group__field"
-             [ngClass]="{'error': hasError('username')}">
-    </div>
+    <form class="form form--auth"
+          (submit)="onSubmit()"
+          [formGroup]="registerForm">
 
-    <div class="form-group">
-      <label for="password" class="form-group__label">Password</label>
-      <input formControlName="password"
-             id="password"
-             class="form-group__field"
-             [ngClass]="{'error': hasError('password')}">
-    </div>
+      <mat-form-field>
+        <input matInput
+               formControlName="email"
+               id="email"
+               type="email"
+               email="true"
+               placeholder="Email address">
 
-    <div class="form-group">
-      <label for="repeat-password" class="form-group__label">Repeat password</label>
-      <input formControlName="repeatPassword"
-             id="repeat-password"
-             class="form-group__field"
-             [ngClass]="{'error': hasError('repeat-password')}">
-    </div>
+        <mat-error *ngIf="email.hasError('email')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="email.hasError('required')">
+          Filed is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
 
-    <button class="btn btn-primary" type="submit">Sign up</button>
-  </form>
+      <mat-form-field>
+        <input matInput
+               formControlName="first_name"
+               id="first_name"
+               type="text"
+               placeholder="First name">
+
+        <mat-error *ngIf="firstName.hasError('required')">
+          Filed is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+               formControlName="last_name"
+               id="last_name"
+               type="text"
+               placeholder="Last name">
+
+        <mat-error *ngIf="lastName.hasError('required')">
+          Filed is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+               formControlName="password"
+               id="password"
+               type="password"
+               placeholder="Password">
+
+        <mat-error *ngIf="registerForm.hasError('mismatchedPasswords')">
+          Password does not matches
+        </mat-error>
+        <mat-error *ngIf="password.hasError('required')">
+          Filed is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+               [errorStateMatcher]="errorMatcher"
+               formControlName="confirm_password"
+               id="confirm_password"
+               type="password"
+               placeholder="Confirm password">
+
+        <mat-error *ngIf="registerForm.hasError('mismatchedPasswords')">
+          Password does not matches
+        </mat-error>
+        <mat-error *ngIf="confirmPassword.hasError('required')" >
+          Filed is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Sign up</button>
+    </form>
+  </mat-card>
 </div>

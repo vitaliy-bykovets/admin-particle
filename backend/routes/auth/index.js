@@ -3,7 +3,7 @@ const User = require('./../../models/User');
 const { validate, JWTService } = require('./../../core/libs');
 
 const router = new Router({
-  prefix: '/api'
+  prefix: '/api/auth'
 });
 
 const handler = {
@@ -16,10 +16,10 @@ const handler = {
     const { email, password } = ctx.request.body;
     const user = await User.findByEmail(email);
     if (!user) {
-      ctx.throwSingle('Пользователь не найден', 404);
+      ctx.throwSingle('User is not found', 404);
     }
     if (!(await user.comparePassword(password))) {
-      ctx.throwSingle('Пароль не верный', 400);
+      ctx.throwSingle('Password is incorrect', 400);
     }
 
     const token = JWTService.signUser(user);

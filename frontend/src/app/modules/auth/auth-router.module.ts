@@ -15,11 +15,11 @@ const routes: Routes = [
         pathMatch: "full"
       },
       {
-        path: 'login',
+        path: "login",
         component: fromComponents.LoginComponent
       },
       {
-        path: 'register',
+        path: "register",
         component: fromComponents.RegisterComponent
       }
     ]
