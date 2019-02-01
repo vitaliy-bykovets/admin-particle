@@ -39,7 +39,7 @@ const handler = {
     const userEmail = await User.where({ email }).count();
 
     if (userEmail) {
-      this.ctx.throwSingle('This email is registered', 409); // 409 Conflict
+      ctx.throwSingle('This email is registered', 409); // 409 Conflict
     }
 
     const user = new User({ email, first_name, last_name, password });
@@ -57,7 +57,7 @@ const handler = {
     const userEmail = await User.where({ email }).count();
 
     if (!userEmail) {
-      this.ctx.throwSingle('User with this email wasn\'t registered', 404); // 404 Not found
+      ctx.throwSingle('User with this email wasn\'t registered', 404); // 404 Not found
     }
   }
 };
@@ -67,4 +67,3 @@ router.post('/signup', handler.signup);
 router.post('/forgot-password', handler.forgotPassword);
 
 module.exports = router.routes();
-

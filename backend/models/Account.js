@@ -1,7 +1,13 @@
 const {bookshelf} = require('./../config/database');
 
-module.exports = bookshelf.model('Account', {
+const Account = bookshelf.Model.extend({
   tableName: 'accounts',
+  transations: function() {
+    return this.hasMany('Transaction')
+  },
+  user: function() {
+    return this.belongsTo('User')
+  },
   initialize() {
     this.on('saving', this.setUpdatetdAt, this);
   },
@@ -13,3 +19,5 @@ module.exports = bookshelf.model('Account', {
     attrs.updated_at = new Date();
   }
 });
+
+module.exports = bookshelf.model('Account', Account);

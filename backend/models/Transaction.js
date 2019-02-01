@@ -1,7 +1,10 @@
-const {bookShelf} = require('./../config/database');
+const { bookshelf } = require('./../config/database');
 
-module.exports = bookShelf.model('Transaction', {
+module.exports = bookshelf.model('Transaction', {
   tableName: 'transactions',
+  account: function() {
+    return this.belongsTo(Account);
+  },
   initialize() {
     this.on('saving', this.setUpdatetdAt, this)
   },

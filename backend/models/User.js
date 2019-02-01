@@ -2,7 +2,7 @@ const {bookshelf}                     = require('./../config/database'); // get 
 const Promise                         = require('bluebird'); // fully featured promise library
 const {comparePassword, hashPassword} = require('./../core/libs/Bcrypt');
 
-module.exports = bookshelf.model('Users',
+const User = bookshelf.Model.extend(
   {
     tableName: 'users',
     initialize() {
@@ -58,3 +58,5 @@ module.exports = bookshelf.model('Users',
     })
   }
 );
+
+module.exports = bookshelf.model('User', User);
