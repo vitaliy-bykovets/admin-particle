@@ -1,13 +1,7 @@
 const {bookshelf} = require('./../config/database');
 
-const Account = bookshelf.Model.extend({
-  tableName: 'accounts',
-  transations: function() {
-    return this.hasMany('Transaction')
-  },
-  user: function() {
-    return this.belongsTo('User')
-  },
+const AgroField = bookshelf.Model.extend({
+  tableName: 'agroFields',
   initialize() {
     this.on('saving', this.setUpdatedAt, this);
   },
@@ -20,4 +14,4 @@ const Account = bookshelf.Model.extend({
   }
 });
 
-module.exports = bookshelf.model('Account', Account);
+module.exports = bookshelf.model('AgroField', AgroField);

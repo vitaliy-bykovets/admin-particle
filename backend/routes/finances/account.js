@@ -55,7 +55,6 @@ const handler = {
     const id = ctx.params.id;
     const account = await Account.where({ id }).fetch();
 
-
     if (!account) {
       ctx.throwSingle("Account doesn't match", 404);
     }
@@ -74,8 +73,6 @@ const handler = {
     const account = await Account.where({ id }).fetch({
       withRelated: ['transations']
     });
-
-
 
     if (!account) {
       ctx.throwSingle("Account doesn't match", 404);

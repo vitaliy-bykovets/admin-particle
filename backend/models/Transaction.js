@@ -6,13 +6,13 @@ module.exports = bookshelf.model('Transaction', {
     return this.belongsTo(Account);
   },
   initialize() {
-    this.on('saving', this.setUpdatetdAt, this)
+    this.on('saving', this.setUpdatedAt, this)
   },
   hidden: [
     'updated_at',
     'created_at'
   ],
-  async setUpdatetdAt(model, attrs) {
+  async setUpdatedAt(model, attrs) {
     attrs.updated_at = new Date();
   }
 });

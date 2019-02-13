@@ -7,7 +7,7 @@ const User = bookshelf.Model.extend(
     tableName: 'users',
     initialize() {
       this.on('creating', this.hashPassword, this);
-      this.on('saving', this.setUpdatetdAt, this);
+      this.on('saving', this.setUpdatedAt, this);
     },
     hidden: [
       'avatar',
@@ -45,7 +45,7 @@ const User = bookshelf.Model.extend(
     },
     // set true updated at (unix timestamp based on timezone machine)
 
-    async setUpdatetdAt(model, attrs, options) {
+    async setUpdatedAt(model, attrs, options) {
       attrs.updated_at = new Date();
     }
     /* eslint-enable */

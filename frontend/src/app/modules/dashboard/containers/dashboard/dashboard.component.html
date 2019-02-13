@@ -3,24 +3,5 @@
 <ap-sidebar></ap-sidebar>
 
 <div class="dashboard-content">
-  <!--<highcharts-chart-->
-    <!--[Highcharts]="highcharts"-->
-
-    <!--[constructorType]="chartConstructor"-->
-    <!--[options]="chartOptions"-->
-    <!--[callbackFunction]="chartCallback"-->
-
-    <!--[(update)]="updateFlag"-->
-    <!--[oneToOne]="oneToOneFlag"-->
-    <!--[runOutsideAngular]="runOutsideAngularFlag"-->
-
-    <!--style="width: 100%; height: 400px; display: block;"-->
-  <!--&gt;</highcharts-chart>-->
-
-
-
-  <agm-map #someMap (mapClick)="handleMapClick($event)" [latitude]="lat" [longitude]="lng">
-  </agm-map>
-
-
+  <ap-agro-map></ap-agro-map>
 </div>

@@ -1,36 +1,36 @@
 
 exports.up = async knex => {
-  await knex.schema.createTable('accounts', (t) => {
-    t.increments();
-    t.string('name')
+  await knex.schema.createTable('accounts', (table) => {
+    table.increments();
+    table.string('name')
       .notNullable();
-    t.string('created_at')
+    table.string('created_at')
       .nullable()
       .defaultTo(null);
-    t.string('updated_at')
+    table.string('updated_at')
       .nullable()
       .defaultTo(null);
   });
 
-  await knex.schema.createTable('transactions', (t) => {
-    t.increments();
-    t.decimal('amount')
+  await knex.schema.createTable('transactions', (table) => {
+    table.increments();
+    table.decimal('amount')
       .nullable()
       .defaultTo(null);
-    t.integer('account_id')
+    table.integer('account_id')
       .index()
       .unsigned()
       .notNullable();
-    t.foreign('account_id')
+    table.foreign('account_id')
       .references('accounts.id')
       .onDelete('CASCADE');
-    t.string('date')
+    table.string('date')
       .nullable()
       .defaultTo(null);
-    t.string('created_at')
+    table.timestamp('created_at')
       .nullable()
       .defaultTo(null);
-    t.string('updated_at')
+    table.timestamp('updated_at')
       .nullable()
       .defaultTo(null);
   });

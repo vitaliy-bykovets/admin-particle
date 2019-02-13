@@ -1,0 +1,16 @@
+<div class="agro-map-container" style="width: 100%; height: 100%;">
+  <div class="agro-map__sidebar">
+
+    <button *ngIf="isViewMode" (click)="setCreateMode()">Create new polygon</button>
+    <button *ngIf="isCreateMode" (click)="setViewMode()">Cancel</button>
+
+    <button *ngIf="isFieldSelected && !isPolygonEdit" (click)="setEditPolygonMode()">Edit polygon</button>
+    <button *ngIf="isPolygonEdit" (click)="finishEditPolygonMode()">Complete polygon</button>
+  </div>
+
+  <agm-map #someMap
+           [zoom]="14"
+           [latitude]="lat"
+           [longitude]="lng">
+  </agm-map>
+</div>
