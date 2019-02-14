@@ -11,6 +11,7 @@ export const apiURL = {
   signin: 'api/auth/signin',
   signup: 'api/auth/signup',
   forgotPassword: 'api/forgot-password',
+  agroField: 'api/agro/field'
 };
 /*
  * In development mode, to ignore zone related error stack frames such as

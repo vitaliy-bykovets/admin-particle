@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from './../../services';
 
@@ -23,15 +23,15 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
-    })
+    });
   }
 
   get email() {
-    return this.loginForm.get("email")
+    return this.loginForm.get('email');
   }
 
   get password() {
-    return this.loginForm.get("password")
+    return this.loginForm.get('password');
   }
 
   public onSubmit() {
@@ -40,6 +40,6 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.loginForm.value)
-      .subscribe((response) => {})
+      .subscribe((response) => {});
   }
 }

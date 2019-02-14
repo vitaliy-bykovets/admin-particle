@@ -7,4 +7,5 @@ export const apiURL = {
   signin: 'api/signin',
   signup: 'api/signup',
   forgotPassword: 'api/forgot-password',
+  agroField: 'api/agro/field'
 };

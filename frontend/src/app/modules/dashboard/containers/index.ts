@@ -1,6 +1,6 @@
-import {DashboardComponent} from "@modules/dashboard/containers/dashboard/dashboard.component";
-import {HeaderComponent} from "@modules/dashboard/containers/header/header.component";
-import {AgroMapComponent} from "@modules/dashboard/containers/agro-map/agro-map.component";
+import {DashboardComponent} from '@modules/dashboard/containers/dashboard/dashboard.component';
+import {HeaderComponent} from '@modules/dashboard/containers/header/header.component';
+import {AgroMapComponent} from '@modules/dashboard/containers/agro-map/agro-map.component';
 
 export const containers: any[] = [
   DashboardComponent,
@@ -8,6 +8,6 @@ export const containers: any[] = [
   AgroMapComponent
 ];
 
-export * from "@modules/dashboard/containers/dashboard/dashboard.component";
-export * from "@modules/dashboard/containers/header/header.component";
-export * from "@modules/dashboard/containers/agro-map/agro-map.component";
+export * from '@modules/dashboard/containers/dashboard/dashboard.component';
+export * from '@modules/dashboard/containers/header/header.component';
+export * from '@modules/dashboard/containers/agro-map/agro-map.component';

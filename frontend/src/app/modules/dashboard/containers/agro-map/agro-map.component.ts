@@ -8,25 +8,16 @@ import {
   SimpleChanges,
   ChangeDetectorRef
 } from '@angular/core';
-import {AgmMap} from "@agm/core";
+import {AgmMap} from '@agm/core';
 
-import {Subscriber} from "rxjs/Subscriber";
+import {Subscriber} from 'rxjs/Subscriber';
+import {AgroService} from '@modules/dashboard/services';
+
+import { Field } from '@modules/dashboard/models';
 
 import * as R from 'ramda';
 
-
 import {} from 'googlemaps';
-import {viewEngine_ChangeDetectorRef_interface} from "@angular/core/src/render3/view_ref";
-
-
-interface field {
-  id: number;
-  polygon?: google.maps.Polygon;
-  path: {
-    lat: number;
-    lng: number
-  }[]
-}
 
 @Component({
   selector: 'ap-agro-map',
@@ -38,23 +29,25 @@ export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
   public activeColor: string = 'red';
   public defaultColor: string = '#000000';
 
-
   @ViewChild('someMap') mapView: AgmMap;
 
-  public fields: field[];
-  public currentField: field;
+  public fields: Field[];
+  public currentField: Field;
 
   public isPolygonEdit: boolean = false;
   public map: google.maps.Map;
   public mapMode = null;
   public mapSubscriber: Subscriber<any>;
 
-  public lat: number = 50.4650055;
-  public lng: number = 26.033686;
+  public lat = 50.4650055;
+  public lng = 26.033686;
 
   public drawingManager: google.maps.drawing.DrawingManager;
 
-  constructor(private ref: ChangeDetectorRef) {}
+  constructor(
+    private ref: ChangeDetectorRef,
+    private agroService: AgroService
+  ) {}
 
   ngOnInit() {
     this.fields = [
@@ -75,7 +68,7 @@ export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
     this.onPolygonClickWrapper = ((self) => {
       return function () {
         self.onPolygonClick(this);
-      }
+      };
     })(this);
   }
 
@@ -97,7 +90,7 @@ export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
       });
       this.drawingManager.setMap(this.map);
 
-      this.drawingManager.addListener("polygoncomplete", this.onPolygonComplete);
+      this.drawingManager.addListener('polygoncomplete', this.onPolygonComplete);
 
       this.fields = this.fields.map(field => {
         field.polygon = new google.maps.Polygon({
@@ -165,7 +158,7 @@ export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
     this.isPolygonEdit = false;
     this.currentField.polygon.setEditable(false);
 
-    const field = this.fields.find(field => field.id === this.currentField.polygon.get('id'));
+    this.fields.find(field => field.id === this.currentField.polygon.get('id'));
 
     const path = [];
     this.currentField.polygon.getPath().forEach(latlng => path.push(latlng.toJSON()));
