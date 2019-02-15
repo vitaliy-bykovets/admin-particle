@@ -4,14 +4,15 @@ import {
   AfterViewInit,
   ViewChild,
   OnDestroy,
-  OnChanges,
-  SimpleChanges,
   ChangeDetectorRef
 } from '@angular/core';
 import {AgmMap} from '@agm/core';
 
 import {Subscriber} from 'rxjs/Subscriber';
 import {AgroService} from '@modules/dashboard/services';
+
+import { Observable } from "rxjs/Observable";
+import { combineLatest } from "rxjs";
 
 import { Field } from '@modules/dashboard/models';
 
@@ -24,13 +25,23 @@ import {} from 'googlemaps';
   templateUrl: './agro-map.component.html',
   styleUrls: ['./agro-map.component.css']
 })
-export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  public drawingManagerOptions = {
+    drawingMode: null,
+    drawingControl: true,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_CENTER,
+      drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+    }
+  };
 
   public activeColor: string = 'red';
   public defaultColor: string = '#000000';
 
   @ViewChild('someMap') mapView: AgmMap;
 
+  public fields$: Observable<any[]>;
   public fields: Field[];
   public currentField: Field;
 
@@ -50,19 +61,7 @@ export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
   ) {}
 
   ngOnInit() {
-    this.fields = [
-      {
-        id: 1,
-        path: [
-          { lat: 50.46211613431092, lng: 26.020553904663075 },
-          { lat: 50.47271487565699, lng: 26.018236476074208 },
-          { lat: 50.460203737291565, lng: 26.04338486779784 },
-          { lat: 50.46249860443564, lng: 26.020725566040028 },
-          { lat: 50.46173366109317, lng: 26.020124751220692 }
-        ]
-      }
-    ];
-    this.currentField = this.fields[0];
+    this.fields$ = this.agroService.getAllField();
 
     this.onPolygonComplete = this.onPolygonComplete.bind(this);
     this.onPolygonClickWrapper = ((self) => {
@@ -70,37 +69,21 @@ export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
         self.onPolygonClick(this);
       };
     })(this);
+
+    combineLatest(this.mapView.mapReady, this.fields$).subscribe(
+      ([map, fields]) => {
+
+        this.fields = fields.map(f => ({...f, path: JSON.parse(f.path)})); // TODO: make model to remap string to lat/lng obj
+
+        this.fields.map((f) => this.applyPolygonToMap(f, <google.maps.Map>map))
+      }
+    );
   }
-
-  public onPolygonClickWrapper() {}
-
-  ngOnChanges(changes: SimpleChanges) {}
 
   ngAfterViewInit() {
     this.mapSubscriber = this.mapView.mapReady.subscribe(map => {
       this.map = map;
-
-      this.drawingManager = new google.maps.drawing.DrawingManager({
-        drawingMode: null,
-        drawingControl: true,
-        drawingControlOptions: {
-          position: google.maps.ControlPosition.TOP_CENTER,
-          drawingModes: [google.maps.drawing.OverlayType.POLYGON]
-        }
-      });
-      this.drawingManager.setMap(this.map);
-
-      this.drawingManager.addListener('polygoncomplete', this.onPolygonComplete);
-
-      this.fields = this.fields.map(field => {
-        field.polygon = new google.maps.Polygon({
-          paths: field.path
-        });
-        field.polygon.set('id', field.id);
-        field.polygon.addListener('click', this.onPolygonClickWrapper);
-        field.polygon.setMap(this.map);
-        return  field;
-      });
+      this.createDrawingManager(this.drawingManagerOptions);
     });
   }
 
@@ -108,12 +91,30 @@ export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
     this.mapSubscriber.unsubscribe();
   }
 
+  onPolygonClickWrapper() {}
+
+  applyPolygonToMap(field: Field, map: google.maps.Map) {
+    field.polygon = new google.maps.Polygon({
+      paths: field.path
+    });
+    field.polygon.set('id', field.id);
+    field.polygon.addListener('click', this.onPolygonClickWrapper);
+    field.polygon.setMap(map);
+  }
+
+  createDrawingManager(options) {
+    this.drawingManager = new google.maps.drawing.DrawingManager(options);
+    this.drawingManager.setMap(this.map);
+    this.drawingManager.addListener('polygoncomplete', this.onPolygonComplete);
+  }
+
   onPolygonClick(polygon: google.maps.Polygon) {
     if (this.currentField) {
+      this.currentField.polygon.setMap(null);
       this.currentField.polygon.setOptions({ fillColor: this.defaultColor });
       this.currentField.polygon.setMap(this.map);
+      this.currentField = null;
     }
-
 
     polygon.setMap(null);
     polygon.setOptions({ fillColor: 'red' });
@@ -129,13 +130,21 @@ export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
 
   onPolygonComplete(polygon: google.maps.Polygon) {
     const path = [];
-    const id = 33;
+    const name = "name";
+    const description = "description";
 
     polygon.getPath().forEach(latlng => path.push(latlng.toJSON()));
-    polygon.set('id', id);
     polygon.addListener('click', this.onPolygonClickWrapper);
 
-    this.fields.push({ id, path, polygon });
+    this.agroService.createField({ name, description, path: JSON.stringify(path) }).subscribe(
+      (field) => {
+        field.polygon = polygon;
+        polygon.set('id', field.id);
+
+        this.fields.push(field);
+      }
+    );
+
     this.setViewMode();
   }
 
@@ -152,16 +161,43 @@ export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
   setEditPolygonMode() {
     this.isPolygonEdit = true;
     this.currentField.polygon.setEditable(true);
+    this.ref.detectChanges();
   }
 
   finishEditPolygonMode() {
     this.isPolygonEdit = false;
-    this.currentField.polygon.setEditable(false);
 
     this.fields.find(field => field.id === this.currentField.polygon.get('id'));
 
     const path = [];
     this.currentField.polygon.getPath().forEach(latlng => path.push(latlng.toJSON()));
+
+    this.agroService.updateFiled(this.currentField.id, {
+      id: this.currentField.id,
+      name: this.currentField.name,
+      description: this.currentField.description,
+      path: JSON.stringify(path)
+    }).subscribe(
+      (field) => {
+        field = Object.assign(field, { polygon: this.currentField.polygon, path, id: +field.id });
+
+        this.fields = [...this.fields.filter(f => f.id != this.currentField.id), field];
+
+        this.currentField.polygon.setEditable(false);
+        this.ref.detectChanges();
+      }
+    )
+  }
+
+  removeField() {
+    this.agroService.deleteFiled(this.currentField.id).subscribe(
+      () => {
+        this.fields = this.fields.filter(f => f.id != this.currentField.id);
+        this.currentField.polygon.setMap(null);
+        this.currentField = null;
+        this.ref.detectChanges();
+      }
+    );
   }
 
   get isViewMode(): boolean {
@@ -174,9 +210,5 @@ export class AgroMapComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
 
   get isFieldSelected(): boolean {
     return !!this.currentField;
-  }
-
-  get currentFieldId() {
-    return R.prop('id', this.currentField);
   }
 }

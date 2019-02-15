@@ -6,6 +6,8 @@
 
     <button *ngIf="isFieldSelected && !isPolygonEdit" (click)="setEditPolygonMode()">Edit polygon</button>
     <button *ngIf="isPolygonEdit" (click)="finishEditPolygonMode()">Complete polygon</button>
+
+    <button *ngIf="isFieldSelected" (click)="removeField()">Delete {{currentField?.id}}</button>
   </div>
 
   <agm-map #someMap

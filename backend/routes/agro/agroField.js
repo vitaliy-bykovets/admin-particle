@@ -38,6 +38,15 @@ const handler = {
 
     ctx.body = agroField;
   },
+  async getAllAgroField(ctx) {
+    const agroField = await AgroField.fetchAll();
+
+    if (!agroField) {
+      ctx.throwSingle("AgroField doesn't match", 404);
+    }
+
+    ctx.body = agroField;
+  },
   async editAgroField(ctx) {
     await validate(
       {
@@ -87,6 +96,7 @@ const handler = {
 };
 
 router.post('/field', handler.createAgroField);
+router.get('/field', handler.getAllAgroField);
 router.get('/field/:id', handler.getAgroField);
 router.put('/field/:id', handler.editAgroField);
 router.delete('/field/:id', handler.deleteAgroField);

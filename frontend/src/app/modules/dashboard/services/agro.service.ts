@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { apiURL } from '@env/environment';
 
+import { apiURL } from '@env/environment';
 
 @Injectable()
 export class AgroService {
@@ -12,6 +12,10 @@ export class AgroService {
 
   public getField(id: number): Observable<any> {
     return this.http.get(`${apiURL.agroField}/${id}`);
+  }
+
+  public getAllField(): Observable<any> {
+    return this.http.get(`${apiURL.agroField}`);
   }
 
   public updateFiled(id: number, data: any): Observable<any> {
