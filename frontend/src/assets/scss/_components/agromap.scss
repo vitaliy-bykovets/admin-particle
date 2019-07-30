@@ -1,0 +1,53 @@
+.agro-map-root {
+  display: block;
+  width: 50%;
+}
+
+.agro-map-container {
+  width: 100%;
+  height: 100%;
+}
+
+.agro-map {
+
+  &__map-wrapper {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.agro-list {
+  &__item {
+    padding: 4px 8px;
+    margin: 8px 4px;
+    height: 60px;
+    border-radius: 3px;
+    border: 1px solid $neutral-decor-color;
+    transition: all 0.2s ease-in-out;
+
+    .btn {
+      display: none;
+    }
+
+    &--active {
+      border-right: 4px solid #397ed7;
+
+      .btn {
+        display: block;
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 70px;
+      }
+    }
+
+    &:hover {
+      box-shadow: 0 2px 9px -1px $neutral-decor-color;
+      cursor: pointer;
+    }
+  }
+}

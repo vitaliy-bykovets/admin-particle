@@ -1,0 +1,11 @@
+<ul class="agro-list">
+  <li class="agro-list__item"
+      *ngFor="let field of fields$ | async"
+      [ngClass]="{'agro-list__item--active': field.id === currentFieldId}"
+      (click)="setCurrentField(field.id)"
+      [routerLink]="['.', field.id]"
+  >
+    {{ field.id }} {{ field.name }}
+    <button class="btn btn-default" (click)="edit()">Edit</button>
+  </li>
+</ul>

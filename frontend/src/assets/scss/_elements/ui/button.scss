@@ -15,3 +15,15 @@
   background-color: $primary-color;
   color: $inverse-color;
 }
+
+
+.btn-default {
+  padding: 6px 12px;
+  color: #484848;
+  border: 1px solid #dce0e0;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #f2f2f2;
+  }
+}
